@@ -11,6 +11,12 @@ ADD docker_files/historyserver-run.sh /apps/historyserver-run.sh
 ADD docker_files/proxyserver-run.sh /apps/proxyserver-run.sh
 RUN chmod a+x /apps/*.sh
 
+# declare the volumes
+RUN mkdir /etc/hadoop/conf.bb && \
+    update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.bb 1 && \
+    update-alternatives --set hadoop-conf /etc/hadoop/conf.bb
+VOLUME /etc/hadoop/conf.bb
+
 # internal ports
 EXPOSE 10020 9046
 
